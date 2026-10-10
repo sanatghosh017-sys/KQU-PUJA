@@ -1,0 +1,37 @@
+# Netlify Configuration for DURGA PUJA 2026 KQU
+# Official Festival & Subscription Management Portal
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# API Route redirects for Netlify Serverless Functions
+[[redirects]]
+  from = "/api/auth/login"
+  to = "/.netlify/functions/auth-login"
+  status = 200
+
+# Standalone HTML and SPA Route Redirects
+[[redirects]]
+  from = "/html"
+  to = "/durga-puja-tracker.html"
+  status = 200
+
+[[redirects]]
+  from = "/standalone"
+  to = "/durga-puja-tracker.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Security & Performance Headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

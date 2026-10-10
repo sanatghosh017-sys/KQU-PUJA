@@ -1,0 +1,6 @@
+{
+  "name": "DURGA PUJA 2026 KQU",
+  "description": "Official festival website and subscription management portal for DURGA PUJA 2026 (KQU). Organized at KQU PWI Office Ground, West Bengal. President: Biswajit Mondal, Secretary: Sanjoy Kumar Das, Treasurer: Dhananjay Kumar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

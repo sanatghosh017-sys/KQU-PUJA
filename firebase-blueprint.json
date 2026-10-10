@@ -1,0 +1,92 @@
+{
+  "entities": {
+    "Donation": {
+      "title": "Donation",
+      "description": "Puja subscription and chanda payment record",
+      "type": "object",
+      "properties": {
+        "donorName": { "type": "string", "maxLength": 100, "description": "Full name of the devotee / donor" },
+        "amount": { "type": "number", "description": "Donation amount in INR" },
+        "unit": { "type": "string", "maxLength": 20, "description": "Unit or department" },
+        "phone": { "type": "string", "maxLength": 20, "description": "Optional contact number" },
+        "email": { "type": "string", "maxLength": 120, "description": "Donor email address" },
+        "userId": { "type": "string", "maxLength": 128, "description": "Authenticated user ID" },
+        "receiptNo": { "type": "string", "maxLength": 50, "description": "Official receipt identifier" },
+        "status": { "type": "string", "enum": ["verified", "pending"], "description": "Payment verification state" },
+        "createdAt": { "type": "string", "description": "ISO date string or timestamp" }
+      },
+      "required": ["donorName", "amount", "unit", "receiptNo"]
+    },
+    "Wish": {
+      "title": "Wish",
+      "description": "Devotee festival greeting on the blessings wall",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "maxLength": 100, "description": "Sender name" },
+        "location": { "type": "string", "maxLength": 100, "description": "Quarter or area" },
+        "message": { "type": "string", "maxLength": 500, "description": "Festive blessing message" },
+        "createdAt": { "type": "string", "description": "Timestamp" }
+      },
+      "required": ["name", "message"]
+    },
+    "PandalPhoto": {
+      "title": "PandalPhoto",
+      "description": "Cultural photo of pandal, idol, or lighting",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 150, "description": "Photo title" },
+        "description": { "type": "string", "maxLength": 500, "description": "Notes or location" },
+        "url": { "type": "string", "description": "Image data URI or photo URL" },
+        "unit": { "type": "string", "maxLength": 50, "description": "Category or unit" },
+        "uploadedAt": { "type": "string", "description": "Upload date timestamp" }
+      },
+      "required": ["title", "url"]
+    },
+    "UnitRecord": {
+      "title": "UnitRecord",
+      "description": "Persisted collection unit with member list",
+      "type": "object",
+      "properties": {
+        "unit": { "type": "string", "maxLength": 20, "description": "Unit identifier" },
+        "data": { "type": "string", "description": "Serialized members array" },
+        "updatedAt": { "type": "string", "description": "Update timestamp" }
+      },
+      "required": ["unit"]
+    },
+    "PaymentRecord": {
+      "title": "PaymentRecord",
+      "description": "Payment state of an individual unit member",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string", "maxLength": 50, "description": "Unit and index key" },
+        "paid": { "type": "boolean", "description": "Payment status" },
+        "paidAt": { "type": "string", "description": "Time of payment" },
+        "method": { "type": "string", "maxLength": 30, "description": "Payment mode" },
+        "receivedBy": { "type": "string", "maxLength": 100, "description": "Collector or portal" }
+      },
+      "required": ["key", "paid"]
+    }
+  },
+  "firestore": {
+    "/donations/{donationId}": {
+      "schema": "Donation",
+      "description": "Public chanda contributions with receipts"
+    },
+    "/wishes/{wishId}": {
+      "schema": "Wish",
+      "description": "Devotees festival blessings and greetings"
+    },
+    "/pandals/{pandalId}": {
+      "schema": "PandalPhoto",
+      "description": "Pandal and idol photographs"
+    },
+    "/units/{unitId}": {
+      "schema": "UnitRecord",
+      "description": "Unit member lists"
+    },
+    "/payments/{paymentId}": {
+      "schema": "PaymentRecord",
+      "description": "Subscription payment statuses"
+    }
+  }
+}

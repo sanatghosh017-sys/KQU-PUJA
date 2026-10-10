@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>DURGA PUJA 2026 KQU - Subscription Tracker (Standalone HTML)</title>
+  <meta name="description" content="DURGA PUJA 2026 KQU Chanda & Subscription Management - Place: KQU PWI OFFICE. President: SANJOY KUMAR DAS. Treasurer: DHANANJAY KUMAR.">
+  <style>
+    :root {
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      --bg: #0c0a09;
+      --card: #1c1917;
+      --tx: #f5f5f4;
+      --tx-dim: #a8a29e;
+      --bd: #292524;
+      --ac: #ef4444;
+      --gold: #f59e0b;
+      --ok: #064e3b;
+      --ok-bd: #047857;
+      --ok-tx: #a7f3d0;
+      --ok-chk: #10b981;
+      --warn-tx: #f87171;
+      --radius: 12px;
+      --shadow: 0 4px 14px rgba(0,0,0,0.4);
+    }
+    * { box-sizing: inherit; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--tx);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.45;
+      padding-bottom: 90px;
+    }
+    /* Festive Header */
+    header {
+      background: linear-gradient(135deg, #7f1d1d, #991b1b, #78350f);
+      color: #fff;
+      padding: 16px 16px 12px;
+      box-shadow: 0 4px 15px rgba(127, 29, 29, 0.25);
+      border-bottom: 2px solid #b45309;
+    }
+    .top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #fef08a;
+      margin-bottom: 6px;
+    }
+    .head-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .subhead {
+      margin: 4px 0 0;
+      font-size: 12px;
+      color: #fde68a;
+      opacity: 0.9;
+    }
+    /* Tabs Bar */
+    .tabs-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--bg);
+      border-bottom: 1px solid var(--bd);
+      padding: 10px 14px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-wrap::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex: none;
+      border: 1px solid var(--bd);
+      background: var(--card);
+      color: var(--tx);
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .tab-btn.on {
+      background: #b45309;
+      color: #fff;
+      border-color: #b45309;
+      box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3);
+    }
+    .tab-count {
+      font-size: 10px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.15);
+    }
+    /* KPI Summary Cards */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 12px 14px 4px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      box-shadow: var(--shadow);
+    }
+    .kpi-card small {
+      display: block;
+      color: var(--tx-dim);
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .kpi-card b {
+      display: block;
+      font-size: 17px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .kpi-collected b { color: var(--ok-chk); }
+    .kpi-pending b { color: var(--warn-tx); }
+    /* Toolbar */
+    .toolbar {
+      padding: 6px 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 160px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--bd);
+      background: var(--card);
+      color: var(--tx);
+      font-size: 13px;
+    }
+    /* List Rows */
+    .list {
+      padding: 6px 14px 20px;
+    }
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: var(--radius);
+      padding: 10px 14px;
+      margin-bottom: 7px;
+      transition: all 0.15s ease;
+    }
+    .row.done {
+      background: var(--ok);
+      border-color: var(--ok-bd);
+    }
+    .row .n {
+      flex: 1;
+      min-width: 0;
+    }
+    .row .n strong {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .row .n small {
+      color: var(--tx-dim);
+      display: block;
+      font-size: 11px;
+      margin-top: 1px;
+    }
+    .row.done .n small { color: var(--ok-tx); font-weight: 600; }
+    .row .amt-box {
+      text-align: right;
+    }
+    .row .amt {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--tx);
+      display: block;
+    }
+    .rcpt-btn {
+      background: rgba(180, 83, 9, 0.2);
+      border: 1px solid rgba(180, 83, 9, 0.4);
+      color: #f59e0b;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 2px;
+    }
+    .row input[type="checkbox"] {
+      width: 24px;
+      height: 24px;
+      accent-color: var(--ok-chk);
+      flex: none;
+      cursor: pointer;
+    }
+    /* Fixed Bottom Action Bar */
+    .bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      display: flex;
+      gap: 6px;
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+      background: var(--card);
+      border-top: 1px solid var(--bd);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+      overflow-x: auto;
+    }
+    .bar button {
+      flex: 1;
+      min-width: 70px;
+      padding: 8px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid var(--bd);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--tx);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .bar button.active {
+      background: #b45309;
+      color: #fff;
+      border-color: #b45309;
+    }
+  </style>
+</head>
+<body>
+  <!-- Festive Header -->
+  <header>
+    <div class="top-meta">
+      <span>DURGA PUJA 2026 KQU</span>
+      <span>Sharadotsav 2026 / ১৪৩৩</span>
+    </div>
+    <div class="head-title">
+      <div>
+        <h1>🪔 DURGA PUJA 2026 KQU</h1>
+        <p class="subhead">Place: <b>KQU PWI OFFICE</b> · President: <b>SANJOY KUMAR DAS</b> · Treasurer: <b>DHANANJAY KUMAR</b></p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sticky Tabs for Units -->
+  <div class="tabs-wrap" id="tabsWrap"></div>
+
+  <!-- KPI Badges -->
+  <div class="kpi-grid" id="kpiGrid"></div>
+
+  <!-- Filter and Search Toolbar -->
+  <div class="toolbar" id="toolbarWrap">
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search name or amount..." oninput="handleSearch(this.value)">
+    </div>
+  </div>
+
+  <!-- Dynamic Content Area -->
+  <div id="mainContent" style="padding-bottom: 90px;"></div>
+
+  <!-- Bottom Navigation -->
+  <div class="bar">
+    <button class="active" id="bNavTracker" onclick="navTo('tracker')">Tracker</button>
+    <button id="bNavSummary" onclick="navTo('summary')">Summary</button>
+  </div>
+
+  <script>
+    const INITIAL_UNITS = {
+      "1": [["PRADIP KUMAR BISWAS",1820],["PARTHA SARATHI SAHA",1770],["BIMAL TANTI",1490],["JAY PRAKASH GOALA",1500],["BIPRADAS MONDAL",1110],["SWAPNA PATRA",1080],["TAPAN KARMAKAR",1090],["ABHAY KUMAR",1060],["HASAN RAHAMAN MULLICK",1090],["SUVANKAR GHOSH",1060],["SUNNY GHOSH",970],["SUMONTA ADHIKARY",970],["RAJENDRA PRASAD ROUT",1690],["JAMAL",1850],["ABHIJIT PAL",1140]],
+      "2": [["RAMNARAYAN PRASAD",1990],["GOBINDA YADAV",1880],["HARINDRA KUMAR SINGH",1720],["ASHOK KUMAR SHOW",1500],["RANJIT KUMAR RAM",1380],["MANTU ROUTH",1500],["DADAN YADAV",1500],["KRISHNA GOALA",1500],["JITENDRA AHIR",1500],["PALTAN GHOSH",1340],["AKHILESH KUMAR MANDAL",1150],["PARTHA SAMANTA",1250],["NEWTON BISWAS",1080],["BROJO DULAL BERA",1210],["SHYAM KUMAR",1110],["AKASH KUMAR",1060],["SUSHANTA BAG",970],["AVIJIT SARKAR",970],["SURESH SADHUKHAN",970],["SURESH RAJAK",1630],["RABI ROUTH",1060],["KARTIK KANRAR",1230],["SUBRATA BHOWMICK",1060],["GOBINDO MONDOL",1060],["SUJIT MADHU",860],["TAPAS KUMAR SARKAR",1230],["SANJOY KUMAR KOLE",890],["SANJAY KUMAR",1260],["SUKANTA BASAK",1110],["PHALGUNI PRADHAN",860],["AKASH DUTTA",860],["VIKRAM KUMAR LALAN SAW",860],["ANIL CHOUDHARY",1330],["RAMA KANT SHARMA",1190]],
+      "3": [["KISHORE PASWAN",1990],["SK NASIR",1720],["KOUSHIK ROY",1330],["BISAMBHAR YADAV",1450],["BISUNDEO SINGH",1450],["ANJAN CHATTERJEE",1280],["CHANDAN KUMAR",1240],["AJIT KUMAR AMAR",1240],["SANDIP MANDAL",970],["ABDUL RAHID",1340],["AMIT BHATTACHARJEE",1640],["KAZI ALI AKRAM",880],["MITHUN GHOSH",990],["AMIMA KHATUN BEGUM",1140],["JHUMPA MEDDA ( MONDAL)",1110],["RUNA LAILA HALDAR",1110],["HALIMA KHATUN",1010],["MITHUN CHAKRABORTY",1590],["CHANDRADIP KARMAKAR",1320],["SUKUMAR SARKAR",1150]],
+      "4": [["RANJIT KORA",2050],["UMESH MONDAL",1580],["GANESH DAS",1490],["SUDIP KUMAR NASKAR",1820],["DHARMOBIR MONDAL",1690],["RAJENDRA GOALA",1500],["SUBRATA ADHIKARY",1340],["PAPPU MONDAL",1550],["BHOLA DAS",1260],["BHISON SAROJ",1150],["SRIKANTA SOREN",1150],["KAMALENDU MONDAL",1530],["ABU SADIK MANDAL",1300],["SANAT KUMAR GHOSH",1250],["SAHIED ALI",1110],["SAKIR HOSSAIN MALLICK",1140],["ARJUN SINGH",1000],["HIRANMOY MONDAL",1250],["SURAJIT DAS",970],["SUKANTA PRAMANIK",970],["ARNAB PATRA",950],["CHIRANJIT GHOSH",970],["BISWAJIT SAMANTA",970],["INDRANIL MAITY",970],["MUFTI MD.MAINUNAL HAQUE",1140],["SANJAY MANDAL",1060],["CHANCHAL NASKAR",1090],["SHANTANU NASKAR",860],["DEBASHIS ROY",860],["SUBIR PODDAR",1760]],
+      "5": [["RAMDHANI",1990],["CHANDAN MONDAL",1770],["AJAY SAHA",1440],["BISWANATH BANIK",1690],["SATYADEO GOND",1500],["SRIKANT KURMI",1460],["KEDAR KUMAR",1250],["RABI KUMAR OJHA",1280],["PRAVAT LAHA",1250],["NARAYAN YADAV",1440],["MINHAJ SARKAR",1210],["ANIRUDHA DUTTA",1040],["BUDDHAN BAGBAI",1280],["MITHUN DAS",1340],["SUMAN NASKAR",860]],
+      "6": [["ANINDA BISWAS",1770],["PREM CHAND PASI",1770],["MUKUL MUDI",1490],["RAM SAGAR YADAV",1500],["BIKASH RAM",1500],["MANOJ KUMAR",1500],["BHARAT GOALA",1500],["PURNWASI GOALA",1500],["GOURI SANKAR GOALA",1500],["BISWAJIT PAL",1250],["SATYENDRA KUMAR",1250],["PRASENJIT DEY",1250],["SANJOY MANNA",1210],["TINKU CHOUDHARY",1280],["ANADI SAHOO",1140],["KISHORE KUNAL KAUSHAL",1250],["PARTHA DAS",970],["TARAK NATH PAL",970],["SAMIRAN KHAMARU",970],["TAIMUR AL AMAN MALLICK",970],["ASHIM GHOSH",1210],["SOHAM PAL",970],["PARTHA GHOSH",970],["RAJA PAUL",970],["MANOJ DE",1250],["SAMBHU BISWAS",1060],["RAJU BISWAS",970],["DEVENDRA SOY",1990],["BABLU MURARI",1850],["ARUN SOREN",1690]],
+      "7": [["ASHUTOSH RAI",1770],["NIKHIL BERA",1930],["SABIR ALI MALLICK",1670],["AJIT DAS",1500],["SRIRAM KURMI",1500],["RAMA SANKAR YADAV",1500],["SUPRABHAT JANA",1140],["SHYAMAL BHANDARI",1140],["SOUMEN AMANI",1060],["MUKTA DAS",1060],["AMIT KUMAR",860],["KALYAN MANDI",860],["SAROJ KUMAR",860]],
+      "MISC": [["AMAN SUBHAM TIRU",810],["ASHIS MOYRA",1110],["PRABIR KUMAR MAHATO",920]]
+    };
+
+    let U = INITIAL_UNITS;
+    try {
+      const savedU = localStorage.getItem('dp_units');
+      if (savedU) U = JSON.parse(savedU);
+    } catch (e) {}
+
+    let st = {};
+    try {
+      const savedSt = localStorage.getItem('dp_paid');
+      if (savedSt) {
+        const parsed = JSON.parse(savedSt);
+        Object.keys(parsed).forEach(k => {
+          if (parsed[k]?.paid || parsed[k] === 1 || parsed[k] === true) st[k] = 1;
+        });
+      }
+    } catch (e) {}
+
+    let cur = "1";
+    let searchQuery = "";
+    const key = (u, i) => u + '-' + i;
+    const fmt = n => n.toLocaleString('en-IN');
+
+    function tot(u) {
+      let t = 0, c = 0, p = 0;
+      const list = U[u] || [];
+      list.forEach((r, i) => {
+        t += r[1];
+        if (st[key(u, i)]) { c += r[1]; p++; }
+      });
+      return { t, c, p, n: list.length };
+    }
+
+    function renderTabs() {
+      const el = document.getElementById('tabsWrap');
+      el.innerHTML = '';
+      [...Object.keys(U), 'ALL'].forEach(u => {
+        const btn = document.createElement('button');
+        btn.className = 'tab-btn' + (u === cur ? ' on' : '');
+        btn.innerHTML = `${u === 'ALL' ? 'Summary' : (u === 'MISC' ? 'MISC' : 'Unit ' + u)} <span class="tab-count">${U[u]?.length || 0}</span>`;
+        btn.onclick = () => { cur = u; render(); };
+        el.appendChild(btn);
+      });
+    }
+
+    function renderKPI(a, b, c, d, e, f) {
+      document.getElementById('kpiGrid').innerHTML = `
+        <div class="kpi-card"><small>${a}</small><b>${b}</b></div>
+        <div class="kpi-card kpi-collected"><small>${c}</small><b>${d}</b></div>
+        <div class="kpi-card kpi-pending"><small>${e}</small><b>${f}</b></div>
+      `;
+    }
+
+    function render() {
+      renderTabs();
+      const m = document.getElementById('mainContent');
+      const toolbar = document.getElementById('toolbarWrap');
+
+      if (cur === 'ALL') {
+        toolbar.style.display = 'none';
+        let T = 0, C = 0;
+        let h = '<div class="list">';
+        Object.keys(U).forEach(u => {
+          const x = tot(u);
+          T += x.t; C += x.c;
+          h += `
+            <div class="row">
+              <div class="n">
+                <strong>${u === 'MISC' ? 'MISC Unit' : 'Unit ' + u}</strong>
+                <small>${x.p}/${x.n} Paid</small>
+              </div>
+              <div class="amt-box">
+                <span class="amt">₹${fmt(x.c)} / ₹${fmt(x.t)}</span>
+              </div>
+            </div>
+          `;
+        });
+        h += '</div>';
+        renderKPI('Total Target', '₹' + fmt(T), 'Collected', '₹' + fmt(C), 'Pending', '₹' + fmt(T - C));
+        m.innerHTML = h;
+        return;
+      }
+
+      toolbar.style.display = 'flex';
+      const x = tot(cur);
+      renderKPI('Unit Target', '₹' + fmt(x.t), 'Collected', '₹' + fmt(x.c), 'Pending', '₹' + fmt(x.t - x.c));
+      const rawList = U[cur] || [];
+      let list = rawList.map((r, i) => ({ name: r[0], amt: r[1], idx: i, paid: !!st[key(cur, i)] }));
+
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        list = list.filter(item => item.name.toLowerCase().includes(q) || item.amt.toString().includes(q));
+      }
+
+      m.innerHTML = `
+        <div class="list">
+          ${list.map(r => `
+            <div class="row ${r.paid ? 'done' : ''}">
+              <input type="checkbox" ${r.paid ? 'checked' : ''} onchange="tg(${r.idx}, this.checked)">
+              <div class="n">
+                <strong>${r.idx + 1}. ${r.name}</strong>
+                <small>${r.paid ? 'Paid' : 'Pending'}</small>
+              </div>
+              <div class="amt-box">
+                <span class="amt">₹${fmt(r.amt)}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+
+    function tg(i, v) {
+      const k = key(cur, i);
+      if (v) st[k] = 1;
+      else delete st[k];
+      try { localStorage.setItem('dp_paid', JSON.stringify(st)); } catch(e){}
+      render();
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      render();
+    }
+
+    function navTo(tab) {
+      document.querySelectorAll('.bar button').forEach(b => b.classList.remove('active'));
+      if (tab === 'tracker') {
+        if (cur === 'ALL') cur = '1';
+        document.getElementById('bNavTracker').classList.add('active');
+      } else {
+        cur = 'ALL';
+        document.getElementById('bNavSummary').classList.add('active');
+      }
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>

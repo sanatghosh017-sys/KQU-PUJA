@@ -1,0 +1,75 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == '17sanatghosh@gmail.com'
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Default deny all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Donations collection
+    match /donations/{donationId} {
+      allow read: if true;
+      allow create: if request.resource.data.donorName is string
+                    && request.resource.data.donorName.size() <= 100
+                    && request.resource.data.amount is number
+                    && request.resource.data.amount > 0
+                    && request.resource.data.receiptNo is string
+                    && request.resource.data.receiptNo.size() <= 50;
+      allow update, delete: if isAdmin();
+    }
+
+    // Wishes / Devotees blessings wall
+    match /wishes/{wishId} {
+      allow read: if true;
+      allow create: if request.resource.data.name is string
+                    && request.resource.data.name.size() <= 100
+                    && request.resource.data.message is string
+                    && request.resource.data.message.size() <= 500;
+      allow update, delete: if isAdmin();
+    }
+
+    // Pandal photos
+    match /pandals/{pandalId} {
+      allow read: if true;
+      allow create: if request.resource.data.title is string
+                    && request.resource.data.title.size() <= 150
+                    && request.resource.data.url is string;
+      allow update, delete: if isAdmin();
+    }
+
+    // Units member lists
+    match /units/{unitId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // Payments status
+    match /payments/{paymentId} {
+      allow read: if true;
+      allow create, update: if true;
+      allow delete: if isAdmin();
+    }
+
+    // Connection test doc
+    match /test/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+  }
+}
